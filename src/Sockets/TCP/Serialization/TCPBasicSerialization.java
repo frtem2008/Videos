@@ -1,4 +1,4 @@
-package Sockets.Serialization;
+package Sockets.TCP.Serialization;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class SerializationExample {
+public class TCPBasicSerialization {
     private static final String ADDRESS = "127.0.0.1";
     private static final int PORT = 26780;
 
@@ -46,7 +46,6 @@ public class SerializationExample {
                 } else {
                     System.out.println("Incorrect object received");
                 }
-
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }

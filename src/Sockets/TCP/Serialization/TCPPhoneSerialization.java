@@ -1,11 +1,11 @@
-package Sockets.Serialization;
+package Sockets.TCP.Serialization;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 
-public class PhoneSerializationExample {
+public class TCPPhoneSerialization {
     private static final int PORT = 26780;
     private static final String ADDRESS = "127.0.0.1";
 
@@ -14,7 +14,7 @@ public class PhoneSerializationExample {
             try (ServerSocket server = new ServerSocket(PORT)) {
                 System.out.println("Server started on port: " + PORT);
                 while (true) {
-                    SerPhone client = new SerPhone(server);
+                    TCPSerPhone client = new TCPSerPhone(server);
                     System.out.println("Client connected with ip address: " + client.getIp());
 
                     System.out.println("Waiting for a game...");
@@ -39,7 +39,7 @@ public class PhoneSerializationExample {
         }).start();
 
         new Thread(() -> {
-            try (SerPhone client = new SerPhone(ADDRESS, PORT)) {
+            try (TCPSerPhone client = new TCPSerPhone(ADDRESS, PORT)) {
                 System.out.println("Client connected to server with ip: " + ADDRESS + " on port " + PORT);
 
                 ArrayList<GameObject> gameObjects = new ArrayList<>();

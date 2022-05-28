@@ -1,10 +1,10 @@
-package Sockets.Serialization;
+package Sockets.TCP.Serialization;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class SerPhone implements Closeable {
+public class TCPSerPhone implements Closeable {
     private final Socket socket; //сам сокет
 
     //потоки для чтения / записи
@@ -15,7 +15,7 @@ public class SerPhone implements Closeable {
     public boolean closed = false;
 
     //конструктор для клиента
-    public SerPhone(String ip, int port) {
+    public TCPSerPhone(String ip, int port) {
         try {
             this.socket = new Socket(ip, port);
             this.objectWriter = new ObjectOutputStream(socket.getOutputStream());
@@ -26,7 +26,7 @@ public class SerPhone implements Closeable {
     }
 
     //конструктор для сервера
-    public SerPhone(ServerSocket server) {
+    public TCPSerPhone(ServerSocket server) {
         try {
             this.socket = server.accept();//ожидание клиентов
             this.objectWriter = new ObjectOutputStream(socket.getOutputStream());
@@ -117,7 +117,7 @@ public class SerPhone implements Closeable {
             return false;
         if (x == this)
             return true;
-        SerPhone cur = (SerPhone) x;
+        TCPSerPhone cur = (TCPSerPhone) x;
         if (cur.socket == this.socket &&
                 cur.getIp().equals(this.getIp())) {
             return true;
