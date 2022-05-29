@@ -39,35 +39,35 @@ public class UDPPhoneSerialization {
         }).start();
 
         new Thread(() -> {
-                    UDPSerPhone client = new UDPSerPhone(ADDRESS, PORT,MAXDATALENGTH);
-                    System.out.println("Client socket created");
-                    Object received;
+            UDPSerPhone client = new UDPSerPhone(ADDRESS, PORT, MAXDATALENGTH);
+            System.out.println("Client socket created");
+            Object received;
 
-                    ArrayList<GameObjectData> gameObjects = new ArrayList<>();
-                    gameObjects.add(new GameObjectData(10, 20, 30, 40, false));
-                    gameObjects.add(new GameObjectData(-10, 120, 10, 80, true));
-                    GameData gameToSend = new GameData(gameObjects);
-                    System.out.println("Game created");
+            ArrayList<GameObjectData> gameObjects = new ArrayList<>();
+            gameObjects.add(new GameObjectData(10, 20, 30, 40, false));
+            gameObjects.add(new GameObjectData(-10, 120, 10, 80, true));
+            GameData gameToSend = new GameData(gameObjects);
+            System.out.println("Game created");
 
-                    System.out.println("Sending game " + gameToSend);
-                    client.writeObject(gameToSend);
-                    System.out.println("Game has been sent");
+            System.out.println("Sending game " + gameToSend);
+            client.writeObject(gameToSend);
+            System.out.println("Game has been sent");
 
-                    System.out.println("Waiting for a game...");
-                    received = client.readObject();
+            System.out.println("Waiting for a game...");
+            received = client.readObject();
 
-                    System.out.println("Object received with type: ");
-                    System.out.println(received.getClass());
-                    if (received.getClass().equals(GameData.class)) {
-                        System.out.println("Received a game: ");
-                        GameData got = (GameData) received;
-                        System.out.println(got);
-                    } else {
-                        System.out.println("Incorrect object received");
-                        System.out.println(received);
-                    }
+            System.out.println("Object received with type: ");
+            System.out.println(received.getClass());
+            if (received.getClass().equals(GameData.class)) {
+                System.out.println("Received a game: ");
+                GameData got = (GameData) received;
+                System.out.println(got);
+            } else {
+                System.out.println("Incorrect object received");
+                System.out.println(received);
+            }
 
-                    System.out.println("Closing sockets");
+            System.out.println("Closing sockets");
             try {
                 System.out.println("Closing all sockets");
                 client.close();

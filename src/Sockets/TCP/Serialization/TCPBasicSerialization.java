@@ -1,9 +1,6 @@
 package Sockets.TCP.Serialization;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -103,6 +100,9 @@ public class TCPBasicSerialization {
 }
 
 class GameData implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     ArrayList<GameObjectData> gameObjects;
 
     public GameData(ArrayList<GameObjectData> gameObjects) {
@@ -118,6 +118,9 @@ class GameData implements Serializable {
 }
 
 class GameObjectData implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     public int x, y, w, h;
     public transient boolean Bot;
 

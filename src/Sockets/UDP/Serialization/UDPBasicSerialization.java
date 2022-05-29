@@ -63,6 +63,7 @@ public class UDPBasicSerialization {
                     } else {
                         System.out.println("Incorrect object received");
                     }
+
                     System.out.println("Closing sockets");
                     server.close();
                 } catch (IOException | ClassNotFoundException e) {
@@ -140,6 +141,9 @@ public class UDPBasicSerialization {
 }
 
 class GameData implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     ArrayList<GameObjectData> gameObjects;
 
     public GameData(ArrayList<GameObjectData> gameObjects) {
@@ -155,6 +159,9 @@ class GameData implements Serializable {
 }
 
 class GameObjectData implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     public int x, y, w, h;
     public transient boolean Bot;
 
