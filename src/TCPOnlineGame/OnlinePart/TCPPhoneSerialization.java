@@ -29,7 +29,7 @@ public class TCPPhoneSerialization {
                     System.out.println("Client connected with ip address: " + client.getIp());
 
                     String data;
-                    System.out.println("Writing: " + client.writeLine("Aboba"));
+                    System.out.println("Writing: " + client.writeLine("Server"));
                     System.out.println("Waiting for reply...");
                     data = client.readLine();
                     System.out.println("Data received: " + data);
@@ -82,7 +82,7 @@ public class TCPPhoneSerialization {
                 System.out.println("Waiting for data...");
                 data = client.readLine();
                 System.out.println("Data received: " + data);
-                System.out.println("Writing: " + client.writeLine("Amogus"));
+                System.out.println("Writing: " + client.writeLine("Client"));
 
 
                 Game toSend = new Game();
