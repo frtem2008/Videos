@@ -21,11 +21,10 @@ public class TCPPhoneSerialization {
                 while (true) {
                     TCPSerPhone client = new TCPSerPhone(server);
                     System.out.println("Server: Client connected with ip address: " + client.getIp());
-                    Keyboard keys;
+                    Keyboard keyboard;
                     while (true) {
-                        System.out.println("Server: Waiting for keys...");
-                        keys = client.readKeyboard();
-                        System.out.println("server: keys: a: " + keys.getA() + ", d: " + keys.getD() + ", w: " + keys.getW() + ", s: " + keys.getS());
+                        keyboard = client.readKeyboard();
+                        System.out.println("server: keys: a: " + keyboard.getA() + ", d: " + keyboard.getD() + ", w: " + keyboard.getW() + ", s: " + keyboard.getS());
                         Thread.sleep(200);
                     }
                 }
