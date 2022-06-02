@@ -1,12 +1,12 @@
 package TCPOnlineGame.OnlinePart;
 
+import TCPOnlineGame.Control.Keyboard;
+
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Files;
 
 public class TCPSerPhone implements Closeable {
     private final Socket socket; //сам сокет
@@ -60,6 +60,10 @@ public class TCPSerPhone implements Closeable {
         return -1;
     }
 
+    public int writeKeyboard(Keyboard keys) {
+        return writeObject(keys);
+    }
+
     public BufferedImage readImage() {
         try {
             return ImageIO.read(objectReader);
@@ -72,14 +76,8 @@ public class TCPSerPhone implements Closeable {
     //отправка сообщения
     public int writeLine(String msg) {
         if (!closed) {
-            try {
-                objectWriter.writeChars(msg);
-                objectWriter.flush();
-                return 0;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return -1; //попытка отправки оффлайн киенту
-            }
+            writeObject(msg);
+            return 0;
         }
         return -2; //сокет сервера закрыт
     }
@@ -87,7 +85,6 @@ public class TCPSerPhone implements Closeable {
     public int writeObject(Serializable obj) {
         if (!closed) {
             try {
-                objectWriter.defaultWriteObject();
                 objectWriter.writeObject(obj);
                 objectWriter.flush();
                 return 0;
@@ -99,13 +96,19 @@ public class TCPSerPhone implements Closeable {
         return -2; //сокет сервера закрыт
     }
 
+    public Keyboard readKeyboard() {
+        Object a = readObject();
+        if (a.equals("-1") || a.equals("-2"))
+            return null;
+        return (Keyboard) a;
+    }
+
     public Object readObject() {
         if (!closed) {
             try {
-                objectReader.defaultReadObject();
                 return objectReader.readObject();
             } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return "-1"; //попытка отправки оффлайн киенту
             }
         }
@@ -157,5 +160,14 @@ public class TCPSerPhone implements Closeable {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "TCPSerPhone{" +
+                "id=" + id +
+                "ip=" + getIp() +
+                ", closed=" + closed +
+                '}';
     }
 }
